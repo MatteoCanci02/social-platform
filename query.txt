@@ -1,0 +1,33 @@
+SELECT DISTINCT `users`.*
+FROM `users`
+JOIN `medias` ON `medias`.`user_id` = `users`.`id`
+WHERE `medias`.`type` = 'video';
+
+
+SELECT `posts`.*
+FROM `posts`
+LEFT JOIN `likes` ON `likes`.`post_id` = `posts`.`id`
+WHERE `likes`.`post_id` IS NULL;
+
+
+SELECT `posts`.`id` AS `post_id`, COUNT(`likes`.`user_id`) AS `like_count`
+FROM `posts`
+LEFT JOIN `likes` ON `likes`.`post_id` = `posts`.`id`
+GROUP BY `posts`.`id`;
+
+
+SELECT `users`.`id`, `users`.`username`, COUNT(`medias`.`id`) AS `media_count`
+FROM `users`
+LEFT JOIN `medias` ON `medias`.`user_id` = `users`.`id`
+GROUP BY `users`.`id`, `users`.`username`
+ORDER BY `media_count` DESC;
+
+
+SELECT `users`.`id`, `users`.`username`, COUNT(`likes`.`user_id`) AS `total_likes_received`
+FROM `users`
+JOIN `posts` ON `posts`.`user_id` = `users`.`id`
+LEFT JOIN `likes` ON `likes`.`post_id` = `posts`.`id`
+GROUP BY `users`.`id`, `users`.`username`
+ORDER BY `total_likes_received` DESC;
+
+
