@@ -1,10 +1,10 @@
-SELECT DISTINCT `users`.*
+SELECT DISTINCT *
 FROM `users`
 JOIN `medias` ON `medias`.`user_id` = `users`.`id`
 WHERE `medias`.`type` = 'video';
 
 
-SELECT `posts`.*
+SELECT *
 FROM `posts`
 LEFT JOIN `likes` ON `likes`.`post_id` = `posts`.`id`
 WHERE `likes`.`post_id` IS NULL;
